@@ -110,7 +110,7 @@ export default {
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Add/Edit an Item">
+      <VCard title="Add / Edit an Inventory item">
         <VDivider />
 
         <VCardText>
@@ -198,7 +198,7 @@ export default {
  
 
     <VCol cols="12">    
-      <VCard title="Services Listing">
+      <VCard title="Inventory items">
         <VCardText>
           <div class="list row">                   
             <VCol cols="5">

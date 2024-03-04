@@ -60,5 +60,10 @@ class InventoryItemController extends Controller
         $inventoryitem = InventoryItem::findOrFail($id);
         $inventoryitem->delete();
         return response()->json(['message' => 'Inventory item deleted successfully'], 200);
-        }
+    }
+
+    public function destroyAll(){
+        InventoryItem::query()->delete();  
+        return response()->json(['message' => 'All items have been deleted successfully'], 200);
+    }
 }

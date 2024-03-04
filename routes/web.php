@@ -23,6 +23,7 @@ Route::prefix('api')->group(function () {
     Route::get('inventory-item/{id}', [App\Http\Controllers\Api\InventoryItemController::class, 'index']);
     Route::post('inventory-item', [App\Http\Controllers\Api\InventoryItemController::class, 'store']);
     Route::delete('inventory-item/{id}', [App\Http\Controllers\Api\InventoryItemController::class, 'destroy']);
+    Route::delete('inventory-item', [App\Http\Controllers\Api\InventoryItemController::class, 'destroyAll']);
 });
 
 Route::get('{any?}', function() {
