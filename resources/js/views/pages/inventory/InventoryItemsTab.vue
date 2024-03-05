@@ -227,7 +227,7 @@ export default {
                   type="reset"
                   @click="resetForm"
                 >
-                  Reset
+                  Clear
                 </VBtn>
               </VCol>
             </VRow>
