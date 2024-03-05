@@ -287,12 +287,12 @@ export default {
                     <td>
                       {{ data.price }}
                     </td>
-                    <td>
+                    <td class="text-center">
                       <button
                         class="badge badge-danger"
-                        @click="deleteRow(data.id )"
+                        @click="deleteRow(data.id)"
                       >
-                        Delete
+                        <i class="fa fa-trash"></i> Delete
                       </button>
                     </td>
                   </tr>
