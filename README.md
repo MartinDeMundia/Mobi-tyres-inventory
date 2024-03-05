@@ -25,6 +25,7 @@ When you clone, run npm i to install the dependencies.
 
 Acceess the frontend using http://localhost:8000
 
+Create a new user, login and proceed with managing the inventory.
 
 # API
 The endpoint has been created using laravel, which implements an ORM Eloquent and MySQL database.
