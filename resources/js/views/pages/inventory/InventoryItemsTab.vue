@@ -148,9 +148,8 @@ export default {
     <VCol cols="12">
       <VCard title="Add / Edit an Inventory item">
         <VDivider />
-
-        <VCardText>
-          <VForm class="mt-6">
+         <VCardText>
+          <VForm class="mt-6" :class="{ 'has-error': hasError }">
             <VRow>
               <VCol
                 md="6"
@@ -164,8 +163,9 @@ export default {
                   v-model="currentData.name"
                   placeholder=""
                   label="Name"
+                  :error-messages="nameError"
+                  :error="nameError !== ''"
                 />
-                <span v-if="nameError" class="text-danger">{{ nameError }}</span>
               </VCol>
             </VRow>
             <VRow>
@@ -177,8 +177,9 @@ export default {
                   v-model="currentData.description"
                   placeholder=""
                   label="Description"
+                  :error-messages="descriptionError"
+                  :error="descriptionError !== ''"
                 />
-                <span v-if="descriptionError" class="text-danger">{{ descriptionError }}</span>
               </VCol>
             </VRow>
 
@@ -191,8 +192,9 @@ export default {
                   v-model="currentData.quantity"
                   placeholder=""
                   label="Quantity"
+                  :error-messages="quantityError"
+                  :error="quantityError !== ''"
                 />
-                <span v-if="quantityError" class="text-danger">{{ quantityError }}</span>
               </VCol>
             </VRow>
 
@@ -205,12 +207,11 @@ export default {
                   v-model="currentData.price"
                   placeholder=""
                   label="Price"
+                  :error-messages="priceError"
+                  :error="priceError !== ''"
                 />
-                <span v-if="priceError" class="text-danger">{{ priceError }}</span>
               </VCol>
             </VRow>
-
-
             <VRow>
               <VCol
                 cols="12"
@@ -236,10 +237,10 @@ export default {
     </VCol>
  
 
-    <VCol cols="12">    
+    <VCol cols="12">
       <VCard title="Inventory items">
         <VCardText>
-          <div class="list row">                   
+          <div class="list row">
             <VCol cols="5">
               <VTextField
                 v-model="search"
@@ -247,7 +248,7 @@ export default {
                 placeholder="Search an item"
                 @input="searchData"
               />
-            </VCol>    
+            </VCol>
             <div class="col-md-6">
               <VTable class="text-no-wrap">
                 <thead>
@@ -312,8 +313,11 @@ export default {
   </VRow>
 </template>
 
-<style>
-.active-row {
-  /* background: yellow;  */
+<style scoped>.has-error .v-messages__message {
+  color: red;
+}
+
+.has-error .v-input__control {
+  border-color: red;
 }
 </style>
