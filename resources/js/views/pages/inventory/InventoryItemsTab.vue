@@ -19,11 +19,15 @@ export default {
         id: "",
         name: "",
         description: "",
-        quantity: "0", 
-        price: "0.00",     
+        quantity: "0",
+        price: "0.00",
       },
       currentIndex: -1,
       search: "",
+      nameError: "",
+      descriptionError: "",
+      quantityError: "",
+      priceError: "",
     }
   },
   mounted() {
@@ -47,19 +51,51 @@ export default {
         quantity: this.currentData.quantity,
         price: this.currentData.price,
       }
+
       DataService.create('inventory-item', data)
-        .then(response => {    
-          this.retrieveData()    
+        .then(response => {
+          this.retrieveData()
+          this.currentData.id = ""
+          this.currentData.name = ""
+          this.currentData.description = ""
+          this.currentData.quantity = "0"
+          this.currentData.price = "0.00"
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 422) {
+            // error handling
+            const errors = error.response.data.errors;
+            this.nameError = errors.name ? errors.name.join(", ") : "";
+            this.descriptionError = errors.description ? errors.description.join(", ") : "";
+            this.quantityError = errors.quantity ? errors.quantity.join(", ") : "";
+            this.priceError = errors.price ? errors.price.join(", ") : "";
+          } else {
+            console.error("Error:", error);
+            alert("An error occurred while saving the data. Please try again later.");
+          }
+        });
+    },
+    /*saveData(selId) {
+      var data = {
+        id: this.currentData.id,
+        name: this.currentData.name,
+        description: this.currentData.description,
+        quantity: this.currentData.quantity,
+        price: this.currentData.price,
+      }
+      DataService.create('inventory-item', data)
+        .then(response => {
+          this.retrieveData()
           this.currentData. id= ""
           this.currentData.name=""
           this.currentData.description= ""
           this.currentData.quantity= "0"
-          this.currentData.price= "0.00" 
+          this.currentData.price= "0.00"
         })
         .catch(e => {
           console.log(e)
         })
-    },
+    },*/
     resetForm(){
       this.currentData. id= ""
       this.currentData.name=""
@@ -114,9 +150,8 @@ export default {
         <VDivider />
 
         <VCardText>
-          <!-- 👉 Form -->
           <VForm class="mt-6">
-            <VRow>         
+            <VRow>
               <VCol
                 md="6"
                 cols="6"
@@ -130,9 +165,10 @@ export default {
                   placeholder=""
                   label="Name"
                 />
+                <span v-if="nameError" class="text-danger">{{ nameError }}</span>
               </VCol>
             </VRow>
-            <VRow>  
+            <VRow>
               <VCol
                 cols="6"
                 md="6"
@@ -142,32 +178,35 @@ export default {
                   placeholder=""
                   label="Description"
                 />
+                <span v-if="descriptionError" class="text-danger">{{ descriptionError }}</span>
               </VCol>
             </VRow>
 
-            <VRow>  
+            <VRow>
               <VCol
-                cols="2"
-                md="2"
+                cols="6"
+                md="6"
               >
                 <VTextField
                   v-model="currentData.quantity"
                   placeholder=""
                   label="Quantity"
                 />
+                <span v-if="quantityError" class="text-danger">{{ quantityError }}</span>
               </VCol>
             </VRow>
 
-            <VRow>  
+            <VRow>
               <VCol
-                cols="2"
-                md="2"
+                cols="6"
+                md="6"
               >
                 <VTextField
                   v-model="currentData.price"
                   placeholder=""
                   label="Price"
                 />
+                <span v-if="priceError" class="text-danger">{{ priceError }}</span>
               </VCol>
             </VRow>
 

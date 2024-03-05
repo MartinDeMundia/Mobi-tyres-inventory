@@ -29,8 +29,8 @@ class InventoryItemController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'quantity' => 'nullable|string|max:255',
-            'price' => 'required|numeric', 
+            'quantity' => 'nullable|numeric|max:255|not_in:0',
+            'price' => 'required|numeric|not_in:0',
         ]);
         
         $data = $request->only('id', 'name', 'description', 'quantity', 'price');

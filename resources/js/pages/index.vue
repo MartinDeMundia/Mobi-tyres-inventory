@@ -9,7 +9,7 @@ const activeTab = ref(route.params.tab)
 const tabs = [
   {
     title: 'Inventory Items',
-    icon: 'bx-business',
+    icon: 'bx-products',
     tab: 'inventory',
   },
 ]
